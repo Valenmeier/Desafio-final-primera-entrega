@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
-import carrito from "../../manangers/cartMananger.js";
-import productosEnEmpresa from "../../manangers/productMananger.js";
+import carrito from "../manangers/cartMananger.js";
+import productosEnEmpresa from "../manangers/productMananger.js";
 const productMananger=productosEnEmpresa
 
 router.post("/", async (req, res) => {

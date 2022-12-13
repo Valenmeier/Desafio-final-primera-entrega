@@ -1,5 +1,5 @@
 import { Router } from "express";
-import productosEnEmpresa from "../../manangers/productMananger.js";
+import productosEnEmpresa from "../manangers/productMananger.js";
 const router = Router();
 const productMananger = productosEnEmpresa;
 
@@ -21,42 +21,11 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   let nuevoProducto = req.body;
-  let { title, description, code, price, stock, thumbnail } = nuevoProducto;
-  if ((title, description, code, price, stock)) {
-    let productos = await productMananger.getProducts();
-    if (productos) {
-      const codeCheck = productos.find((el) => el.code == code);
-      if (codeCheck) {
-        res.send(
-          `El código del producto agregado ya existe, porfavor agregue un producto valido o un nuevo producto.`
-        );
-      } else {
-        productMananger.addProduct(
-          title,
-          description,
-          code,
-          price,
-          stock,
-          thumbnail
-        );
-        res.send(`Producto cargado correctamente`);
-      }
-    } else {
-      productMananger.addProduct(
-        title,
-        description,
-        code,
-        price,
-        stock,
-        thumbnail
-      );
-      res.send(`Producto cargado correctamente`);
-    }
-  } else {
-    res.send(
-      `Compruebe que tenga todos los datos solicitados(title, description, code, price, stock, thumbnail(opcional)) para subir correctamente su producto `
-    );
+  const response = await productMananger.addProduct(nuevoProducto);
+  if (!response.success) {
+    return res.status(400).send(response.message);
   }
+  res.status(200).send(response.message);
 });
 
 router.get("/:pid", async (req, res) => {

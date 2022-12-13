@@ -2,7 +2,7 @@ import fs from "fs";
 
 class CartMananger {
   constructor(path) {
-    this.path = `data/${path}`;
+    this.path = `./src/data/${path}`;
   }
   addCart = async () => {
     if (fs.existsSync(this.path)) {

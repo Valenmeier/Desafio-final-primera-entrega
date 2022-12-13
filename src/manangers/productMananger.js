@@ -1,12 +1,17 @@
 import fs from "fs";
 class ProductMananger {
   constructor(path) {
-    this.path = `data/${path}`;
+    this.path = `./src/data/${path}`;
   }
-  addProduct = async (title, description, code, price, stock, thumbnail) => {
+  addProduct = async ({title, description, code, price, stock, thumbnail}) => {
+    if(!title || !description || !code || !price || !stock){
+      return {success:false,message:`Compruebe que tenga todos los datos solicitados(title, description, code, price, stock, thumbnail(opcional)) para subir correctamente su producto `}
+    }
     if (fs.existsSync(this.path)) {
       let info = await fs.promises.readFile(this.path, "utf-8");
       let result = JSON.parse(info);
+      const codeCheck = productos.find((el) => el.code == code);
+      if (codeCheck) return {success:false,message:`El código del producto agregado ya existe, porfavor agrega un producto valido o un nuevo producto`}
       let idParaProducto = result[result.length - 1].id + 1;
       let nuevoProducto = {
         id: idParaProducto,
@@ -20,6 +25,7 @@ class ProductMananger {
       };
       result.push(nuevoProducto);
       await fs.promises.writeFile(this.path, JSON.stringify(result, null, 2));
+      return {success:true,message:"Producto agregado exitosamente:"}
     } else {
       let nuevoProducto = {
         id: 1,
@@ -35,6 +41,7 @@ class ProductMananger {
         this.path,
         JSON.stringify([nuevoProducto], null, 2)
       );
+      return {success:true,message:"Producto agregado exitosamente:"}
     }
   };
   getProducts = async () => {
