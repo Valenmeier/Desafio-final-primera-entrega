@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Misil nuclear",
+    "description": "por si la cosa se pone fea",
+    "code": 2518,
+    "price": 5000,
+    "status": true,
+    "stock": 450,
+    "thumbnail": "https://static.dw.com/image/61259702_101.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Remera chapecoense",
+    "description": "por si la cosa se pone feaaa",
+    "code": 2218,
+    "price": 5000,
+    "status": true,
+    "stock": 450,
+    "thumbnail": "https://todosobrecamisetas.com/wp-content/uploads/camisas-chapecoense-2020-21-umbro-1.jpg"
+  }
+]
